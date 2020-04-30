@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.4" type="plugin" group="system" method="upgrade">
+    <name>System - Kernel Sentry</name>
+    <author>Kernel Data Ltd</author>
+    <creationDate>April 2020</creationDate>
+    <copyright>Copyright (C) 2020 Kernel Data Ltd. All rights reserved.</copyright>
+    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+    <authorEmail>jaz@kernel.co.uk</authorEmail>
+    <authorUrl>www.kernel.co.uk</authorUrl>
+    <version>1.0.0</version>
+    <description>Plugin to include the Sentry PHP library in Joomla</description>
+    <files>
+        <folder>vendor</folder>
+        <filename plugin="kernelsentry">kernelsentry.php</filename>
+    </files>
+    <config>
+        <fields name="params">
+            <fieldset name="basic">
+                <field
+                        name="sentry_dsn"
+                        type="text"
+                        label="Sentry DSN"
+                        description="You can find the DSN value for your project within your Sentry account."
+                        size="60"
+                />
+                <field name="error_types" type="checkboxes" required="true" label="Select Error Type Levels" description="Select the level of errors that you would like Sentry to include.">
+                    <option value="E_ERROR">E_ERROR</option>
+                    <option value="E_WARNING">E_WARNING</option>
+                    <option value="E_NOTICE">E_NOTICE</option>
+                    <option value="E_PARSE">E_PARSE</option>
+                    <option value="E_DEPRECATED">E_DEPRECATED</option>
+                </field>
+            </fieldset>
+        </fields>
+    </config>
+</extension>

@@ -1,0 +1,7 @@
+{
+  "name": "Kernel Sentry for Joomla",
+  "description": "Kernel Sentry plugin for Joomla.",
+  "require": {
+    "sentry/sdk": "2.1.0"
+  }
+}
