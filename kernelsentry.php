@@ -9,9 +9,6 @@
  * @license         http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
  */
 
-use Joomla\Registry\Registry;
-use Joomla\String\StringHelper;
-
 defined('_JEXEC') or die;
 
 require_once __DIR__ . '/vendor/autoload.php';
@@ -35,7 +32,7 @@ class plgSystemKernelsentry extends JPlugin
 	 * Constructor.
 	 *
 	 * @param   object  &$subject  The object to observe
-	 * @param   array   $config    An optional associative array of configuration settings.
+	 * @param   array    $config   An optional associative array of configuration settings.
 	 *
 	 * @since   1.0.0
 	 */
@@ -43,10 +40,39 @@ class plgSystemKernelsentry extends JPlugin
 	{
 		parent::__construct($subject, $config);
 
-		Sentry\init(
-			['dsn' => $this->params['sentry_dsn']],
-			['error_types' => implode(' | ', $this->params['error_types'])]
-		);
+		$non_plugin_settings = false;
+		if ($this->params['settings_file'] != '' & $this->params['settings_class'] != '')
+		{
+			$settings_file = realpath(dirname(__DIR__) . '/../../'. $this->params['settings_file']);
+
+			if (file_exists($settings_file))
+			{
+				require_once($settings_file);
+				$settings_class = $this->params['settings_class'];
+
+				if (class_exists($settings_class))
+				{
+					$settings_class      = new $settings_class();
+					// check for params.
+					Sentry\init([
+							'dsn'         => $settings_class->sentry_dsn,
+							'environment' => $settings_class->sentry_environment
+						]
+					);
+					$non_plugin_settings = true;
+				}
+			}
+		}
+
+		if (!$non_plugin_settings)
+		{
+			Sentry\init(
+				[
+					'dsn'         => $this->params['sentry_dsn'],
+					'environment' => $this->params['sentry_environment'],
+				]
+			);
+		}
 
 		JError::setErrorHandling(E_ERROR, 'callback', array('PlgSystemKernelsentry', 'handleError'));
 		self::$previousExceptionHandler = set_exception_handler(array('PlgSystemKernelsentry', 'handleException'));
@@ -73,8 +99,8 @@ class plgSystemKernelsentry extends JPlugin
 	 *
 	 * @return  void
 	 *
-	 * @since   1.0.0
 	 * @throws  InvalidArgumentException
+	 * @since   1.0.0
 	 */
 	public static function handleException($exception)
 	{

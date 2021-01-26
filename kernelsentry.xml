@@ -7,8 +7,45 @@
     <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
     <authorEmail>jaz@kernel.co.uk</authorEmail>
     <authorUrl>www.kernel.co.uk</authorUrl>
-    <version>1.0.0</version>
-    <description>Plugin to include the Sentry PHP library in Joomla</description>
+    <version>1.0.1</version>
+    <description>
+        Plugin to include the Sentry PHP library in Joomla
+
+        <![CDATA[
+<p>Example Content of PHP Settings File: (note that variable names MUST match exactly)</p>
+<pre>
+class customConfig {
+    public $sentry_dsn = 'https://123456@abcdef.ingest.sentry.io/987654'; // Change to your Sentry DSN
+    public $sentry_environment = 'production'; // Change your environment label
+}
+</pre>
+<p>To prepend Sentry execution to .htaccess file (bypassing this plugin):</p>
+<ol>
+    <li>Create settings file as detailed above</li>
+    <li>
+    Create a PHP file to call Sentry:
+    <pre>
+require_once dirname(__DIR__) . '/foldername/settings-file.php'; // Change to location of settings file
+require_once dirname(__DIR__) . '/plugins/system/kernelsentry/vendor/autoload.php';
+$settings_class = new customConfig(); // Change class name to match the class name in your settings file
+
+Sentry\init(
+    [
+        'dsn'         => $settings_class->sentry_dsn,
+        'environment' => $settings_class->sentry_environment
+    ]
+);
+</pre>
+    </li>
+    <li>
+        Prepend this file to your .htaccess file. Exaple below, update directory to match your file location:
+<pre>
+php_value auto_prepend_file /home/user/public_html/crons/sentry.php
+</pre>
+    </li>
+</ol>
+        ]]>
+    </description>
     <files>
         <folder>vendor</folder>
         <filename plugin="kernelsentry">kernelsentry.php</filename>
@@ -23,13 +60,26 @@
                         description="You can find the DSN value for your project within your Sentry account."
                         size="60"
                 />
-                <field name="error_types" type="checkboxes" required="true" label="Select Error Type Levels" description="Select the level of errors that you would like Sentry to include.">
-                    <option value="E_ERROR">E_ERROR</option>
-                    <option value="E_WARNING">E_WARNING</option>
-                    <option value="E_NOTICE">E_NOTICE</option>
-                    <option value="E_PARSE">E_PARSE</option>
-                    <option value="E_DEPRECATED">E_DEPRECATED</option>
-                </field>
+                <field
+                        name="sentry_environment"
+                        type="text"
+                        label="Environment"
+                        description="A name for the environment running, e.g. stage or production"
+                        default="production"
+                />
+                <field
+                        name="settings_file"
+                        type="text"
+                        label="Settings File Location"
+                        description="Do not include root directory. If populated, the plugin will ignore the above settings and will use those present in your environment settings file."
+                />
+                <field
+                        name="settings_class"
+                        type="text"
+                        label="Settings Class Name"
+                        description="Do not include parenthesis. If populated, the plugin will ignore the above settings and will read them from this class instead."
+                />
+
             </fieldset>
         </fields>
     </config>
