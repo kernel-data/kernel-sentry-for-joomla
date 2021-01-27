@@ -71,7 +71,7 @@ php_value auto_prepend_file /home/user/public_html/foldername/sentry.php
                         name="settings_file"
                         type="text"
                         label="Settings File Location"
-                        description="Do not include root directory. If populated, the plugin will ignore the above settings and will use those present in your environment settings file."
+                        description="Do not include root directory. If populated, the plugin will ignore the above settings and will use those present in your environment settings file. (E.g: foldername/filename.php)"
                 />
                 <field
                         name="settings_class"
