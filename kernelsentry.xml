@@ -14,10 +14,12 @@
         <![CDATA[
 <p>Example Content of PHP Settings File: (note that variable names MUST match exactly)</p>
 <pre>
+<?php
 class customConfig {
     public $sentry_dsn = 'https://123456@abcdef.ingest.sentry.io/987654'; // Change to your Sentry DSN
     public $sentry_environment = 'production'; // Change your environment label
 }
+?>
 </pre>
 <p>To prepend Sentry execution to .htaccess file (bypassing this plugin):</p>
 <ol>
@@ -25,6 +27,7 @@ class customConfig {
     <li>
     Create a PHP file to call Sentry:
     <pre>
+<?php
 require_once dirname(__DIR__) . '/foldername/settings-file.php'; // Change to location of settings file
 require_once dirname(__DIR__) . '/plugins/system/kernelsentry/vendor/autoload.php';
 $settings_class = new customConfig(); // Change class name to match the class name in your settings file
@@ -35,10 +38,11 @@ Sentry\init(
         'environment' => $settings_class->sentry_environment
     ]
 );
+?>
 </pre>
     </li>
     <li>
-        Prepend this file to your .htaccess file. Exaple below, update directory to match your file location:
+        Prepend this file to your .htaccess file. Example below, update directory to match your file location:
 <pre>
 php_value auto_prepend_file /home/user/public_html/foldername/sentry.php
 </pre>
@@ -71,7 +75,7 @@ php_value auto_prepend_file /home/user/public_html/foldername/sentry.php
                         name="settings_file"
                         type="text"
                         label="Settings File Location"
-                        description="Do not include root directory. If populated, the plugin will ignore the above settings and will use those present in your environment settings file."
+                        description="Do not include root directory or leading forward slash (e.g. foldername/settings-file.php) If populated, the plugin will ignore the above settings and will use those present in your environment settings file."
                 />
                 <field
                         name="settings_class"
