@@ -53,7 +53,6 @@ class plgSystemKernelsentry extends JPlugin
 				if (class_exists($settings_class))
 				{
 					$settings_class      = new $settings_class();
-					// check for params.
 					Sentry\init([
 							'dsn'         => $settings_class->sentry_dsn,
 							'environment' => $settings_class->sentry_environment

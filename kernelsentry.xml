@@ -40,7 +40,7 @@ Sentry\init(
     <li>
         Prepend this file to your .htaccess file. Exaple below, update directory to match your file location:
 <pre>
-php_value auto_prepend_file /home/user/public_html/crons/sentry.php
+php_value auto_prepend_file /home/user/public_html/foldername/sentry.php
 </pre>
     </li>
 </ol>
