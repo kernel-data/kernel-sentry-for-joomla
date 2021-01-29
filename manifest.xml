@@ -7,9 +7,9 @@
         <type>plugin</type>
         <version>1.0.1</version>
         <client>site</client>
-        <infourl title="Kernel Sentry">https://github.com/kernel-data/kernel-sentry-for-joomla/releases/tag/1.0.1</infourl>
+        <infourl title="Kernel Sentry">https://github.com/kernel-data/kernel-sentry-for-joomla/releases/tag/1.0.2</infourl>
         <downloads>
-            <downloadurl type="full" format="zip">https://github.com/kernel-data/kernel-sentry-for-joomla/releases/download/1.0.1/plg_kernelsentry_v1.0.1.zip</downloadurl>
+            <downloadurl type="full" format="zip">https://github.com/kernel-data/kernel-sentry-for-joomla/releases/download/1.0.2/plg_kernelsentry_v1.0.2.zip</downloadurl>
         </downloads>
         <targetplatform name="joomla" version="3.[6789]" />
     </update>
