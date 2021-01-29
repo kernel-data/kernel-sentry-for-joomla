@@ -86,6 +86,6 @@ php_value auto_prepend_file /home/user/public_html/foldername/sentry.php
         </fields>
     </config>
     <updateservers>
-        <server type="extension" name="Kernel Sentry Update Server">https://github.com/kernel-data/kernel-sentry-for-joomla/blob/master/manifest.xml</server>
+        <server type="extension" name="Kernel Sentry Update Server">https://raw.github.com/kernel-data/kernel-sentry-for-joomla/master/manifest.xml</server>
     </updateservers>
 </extension>
