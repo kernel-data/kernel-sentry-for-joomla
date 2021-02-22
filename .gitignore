@@ -15,3 +15,5 @@ vendor/
 # Windows #
 Thumbs.db
 Desktop.ini
+
+packages/
