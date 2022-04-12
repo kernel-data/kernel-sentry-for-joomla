@@ -7,7 +7,7 @@
     <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
     <authorEmail>jaz@kernel.co.uk</authorEmail>
     <authorUrl>www.kernel.co.uk</authorUrl>
-    <version>1.0.8</version>
+    <version>1.0.9</version>
     <description>
         Plugin to include the Sentry PHP library in Joomla
 
